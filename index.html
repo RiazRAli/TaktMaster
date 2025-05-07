@@ -223,7 +223,7 @@ let speed = 1000;
 let variability = 0;
 let nextArrival = 0;
 let taktTimeHistory = [];
-let winTimer = 0;
+let winStartTime = null;
 let hasBeenInLoss = false;
 let gameWon = false;
 
@@ -656,21 +656,13 @@ function checkWinCondition() {
   const inRange = Math.abs(currentTaktTime - taktTimeGoal) <= 1.6;
   const notBroke = money >= 0;
 
-  if (typeof checkWinCondition.missCounter === 'undefined') {
-    checkWinCondition.missCounter = 0;
-  }
-
   if (inRange && notBroke) {
-    winTimer++;
-    checkWinCondition.missCounter = 0;
+    if (!winStartTime) winStartTime = Date.now();
   } else {
-    checkWinCondition.missCounter++;
-    if (checkWinCondition.missCounter > 2) {
-      winTimer = 0;
-    }
+    winStartTime = null;
   }
 
-  if (winTimer >= 60) {
+  if (winStartTime && Date.now() - winStartTime >= 60000) {
     gameWon = true;
     clearInterval(timerInterval);
     showWinMessage();
