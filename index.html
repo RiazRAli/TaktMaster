@@ -169,6 +169,26 @@
   <div id="arrivalCountdown" style="position: absolute; right: 20px; top: 100px; font-size: 1.2rem; font-weight: bold; color: red;">
     Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate; color: red;">0</span><span style="color: red;">s</span>
   </div>
+  // penalty note
+  <div id="penaltyNotice" style="
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 0, 0, 0.85);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ff4444;
+    border-radius: 5px;
+    display: none;
+    z-index: 999;
+    box-shadow: 0 0 8px #ff0000;
+  ">
+  Overstock Penalty: -$0
+</div>
+
   <div style="display: flex; align-items: center;">
     <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: #00ff00; line-height: 1;">Takt Time (s)</div>
     <div style="display: flex; flex-direction: column; align-items: flex-start;">
@@ -584,8 +604,42 @@ money -= +totalCostPerSecond.toFixed(2);
       showWinMessage();
     }
   }
+
+  
   updateUI();
 }
+// Overstock Penalty Logic
+let totalPenalty = 0;
+stations.forEach(station => {
+  const overstock = station.queue.length - 5;
+  if (overstock > 0) {
+    if (!station.penaltyCounter) station.penaltyCounter = 0;
+    station.penaltyCounter++;
+
+    const penaltyInterval = station.baseTime;
+    if (station.penaltyCounter >= penaltyInterval) {
+      const penalty = overstock * 5;
+      money -= penalty;
+      totalPenalty += penalty;
+      station.penaltyCounter = 0;
+    }
+  } else {
+    station.penaltyCounter = 0;
+  }
+});
+
+// Show penalty alert
+const penaltyNotice = document.getElementById('penaltyNotice');
+if (totalPenalty > 0) {
+  penaltyNotice.innerText = `Overstock Penalty: -$${totalPenalty}`;
+  penaltyNotice.style.display = 'block';
+  clearTimeout(penaltyNotice.timeout);
+  penaltyNotice.timeout = setTimeout(() => {
+    penaltyNotice.style.display = 'none';
+  }, 2000);
+}
+
+});
 
 
 function resetGame() {
