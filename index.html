@@ -163,48 +163,48 @@
 </style>
 </head>
 <body>
-<header>
-  <h1>TaktMaster: Factory Flow Simulator</h1>
+  <header>
+    <h1>TaktMaster: Factory Flow Simulator</h1>
 
-  <div id="arrivalCountdown" style="position: absolute; right: 20px; top: 100px; font-size: 1.2rem; font-weight: bold; color: red;">
-    Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate; color: red;">0</span><span style="color: red;">s</span>
-  </div>
-
-  <div id="penaltyNotice" style="
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 0, 0, 0.85);
-    color: white;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.7rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid #ff4444;
-    border-radius: 5px;
-    display: none;
-    z-index: 999;
-    box-shadow: 0 0 8px #ff0000;
-  ">
-    Overstock Penalty: -$0
-  </div>
-
-  <div style="display: flex; align-items: center;">
-    <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: #00ff00; line-height: 1;">Takt Time (s)</div>
-    <div style="display: flex; flex-direction: column; align-items: flex-start;">
-      <canvas id="taktChart" width="600" height="100" style="background: #111; border: 2px solid #00ff00; margin: 1rem 0 0 0; display: block;"></canvas>
-      <div style="font-size: 0.6rem; color: #00ff00; margin-left: 3.2rem;">Time →</div>
+    <div id="arrivalCountdown" style="position: absolute; right: 20px; top: 100px; font-size: 1.2rem; font-weight: bold; color: red;">
+      Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate; color: red;">0</span><span style="color: red;">s</span>
     </div>
-  </div>
 
-  <div class="money-time">
-    <div>💰 Money: $<span id="money">1000</span></div>
-    <div>⏱️ Time: <span id="timer">0</span>s</div>
-    <div>🎯 Takt Time Goal: <span id="taktTime" style="color: yellow;"></span></div>
-    <div>📦 Total Produced: <span id="totalProduced">0</span> units</div>
-    <div>💸 Worker Overhead: $<span id="workerCost">0</span>/min</div>
-  </div>
-</header>
+    <div id="penaltyNotice" style="
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 0, 0, 0.85);
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      padding: 0.5rem 1rem;
+      border: 2px solid #ff4444;
+      border-radius: 5px;
+      display: none;
+      z-index: 999;
+      box-shadow: 0 0 8px #ff0000;
+    ">
+      Overstock Penalty: -$0
+    </div>
+
+    <div style="display: flex; align-items: center;">
+      <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: #00ff00; line-height: 1;">Takt Time (s)</div>
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <canvas id="taktChart" width="600" height="100" style="background: #111; border: 2px solid #00ff00; margin: 1rem 0 0 0; display: block;"></canvas>
+        <div style="font-size: 0.6rem; color: #00ff00; margin-left: 3.2rem;">Time →</div>
+      </div>
+    </div>
+
+    <div class="money-time">
+      <div>💰 Money: $<span id="money">1000</span></div>
+      <div>⏱️ Time: <span id="timer">0</span>s</div>
+      <div>🎯 Takt Time Goal: <span id="taktTime" style="color: yellow;"></span></div>
+      <div>📦 Total Produced: <span id="totalProduced">0</span> units</div>
+      <div>💸 Worker Overhead: $<span id="workerCost">0</span>/min</div>
+    </div>
+  </header>
 
 <section id="controls">
   <button id="togglePlayBtn" onclick="togglePlay()">▶️ Play</button>
