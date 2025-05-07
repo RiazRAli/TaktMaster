@@ -261,7 +261,17 @@ function randArrivalInterval() {
 
 function updateUI() {
   const productivityLevels = [0.25, 0.5, 0.75, 1.0];
-  let totalWorkerCost = stations.reduce((sum, s) => sum + s.workers * 45, 0);
+  let totalWorkerCost = stations.reduce((sum, s) => {
+    if (s.workers === 1) {
+      return sum + (s.productivity * 45);
+    } else if (s.workers > 1) {
+      const fullTime = (s.workers - 1) * 45;
+      const partTime = s.productivity * 45;
+      return sum + fullTime + partTime;
+    }
+    return sum;
+  }, 0);
+
   drawTaktChart();
   document.getElementById("countdown").innerText = Math.max(0, nextArrival - time);
   const moneyElem = document.getElementById("money");
