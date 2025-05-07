@@ -269,6 +269,8 @@ let hasBeenInLoss = false;
 let gameWon = false;
 let negativeMoneyTime = 0;
 const maxNegativeTime = 120;
+let gameWon = false;
+let gameLost = false;
 
 
 
@@ -667,10 +669,11 @@ if (totalPenalty > 0) {
 
 
   if (negativeMoneyTime >= maxNegativeTime) {
-  clearInterval(timerInterval);
-  showLoseMessage();
-  return;
-}
+    gameLost = true;
+    clearInterval(timerInterval);
+    showLoseMessage();
+    return;
+  }
   
 updateUI();
 }
@@ -682,6 +685,8 @@ updateUI();
 function resetGame() {
   const slider = document.getElementById('variabilitySlider');
   slider.disabled = false;
+  gameWon = false;
+  gameLost = false;
   variability = parseFloat(slider.value);
   clearInterval(timerInterval);
   money = 1000;
@@ -803,6 +808,7 @@ slider.addEventListener("input", function () {
 });
 
 function checkWinCondition() {
+  if (gameLost) return;
   const inRange = Math.abs(currentTaktTime - taktTimeGoal) <= 1.6;
   const notBroke = money >= 0;
 
