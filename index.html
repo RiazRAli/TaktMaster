@@ -259,6 +259,8 @@
 
 <section id="controls">
   <button id="togglePlayBtn" onclick="togglePlay()">▶️ Play</button>
+  <button id="toggleSupplyBtn" onclick="toggleSupply()">🛑 Stop Supply</button>
+
   <button onclick="toggleSpeed()" id="speedBtn">⏩ Speed: 1x</button>
   <button onclick="resetGame()">🔄 Reset</button>
   <div style="position: relative; display: flex; align-items: center; gap: 0.5rem; margin-left: 1rem;">
@@ -292,6 +294,8 @@ let negativeMoneyTime = 0;
 const maxNegativeTime = 120;
 let gameWon = false;
 let gameLost = false;
+let supplyOn = true;
+
 
 
 
@@ -546,7 +550,9 @@ money -= +totalCostPerSecond.toFixed(2);
   }
  
   if (time >= nextArrival) {
-    stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
+    if (suplyOn) {
+      stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
+    }
     const minCycle = Math.min(...stations.map(s => s.baseTime));
     const variation = Math.random() * 2;
     nextArrival = Math.max(time + 1, time + Math.floor(minCycle - variation));
@@ -701,6 +707,11 @@ updateUI();
 }
 
 
+function toggleSupply() {
+  supplyOn = !supplyOn;
+  const btn = document.getElementById("toggleSupplyBtn");
+  btn.innerText = supplyOn ? "🛑 Stop Supply" : "✅ Resume Supply";
+}
 
 
 
