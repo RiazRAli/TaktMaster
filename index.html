@@ -96,6 +96,14 @@
       border-color: #111;
       box-shadow: 0 0 15px #00ff00 inset, 0 0 8px #00ff00;
     }
+
+    .station-btn {
+      font-size: 0.45rem;
+      padding: 0.15rem 0.3rem;
+      margin-top: 0.15rem;
+      margin-bottom: 0.15rem;
+    }
+
     .money-time {
       display: flex;
       justify-content: space-between;
@@ -354,10 +362,10 @@ function updateUI() {
       <p>Queue: ${s.queue.length} units</p>
       <div style='font-size: 1rem;'>${'📦'.repeat(Math.min(10, s.queue.length))}${s.queue.length > 10 ? ' ...' : ''}</div>
       <p>Processing: ${s.processing.length} units</p>
-      <button onclick="addWorker(${i})">Add Worker ($${s.workerCost})</button>
-      <button onclick="removeWorker(${i})">Lay Off Worker</button>
-      <button onclick="upgradeStation(${i})">Upgrade ($${s.upgradeCost})</button>
-      <button onclick="toggleProductivity(${i})">% Time Working: ${Math.round(s.productivity * 100)}%</button>
+      <button class="station-btn" onclick="addWorker(${i})">Add Worker ($${s.workerCost})</button>
+      <button class="station-btn" onclick="removeWorker(${i})">Lay Off Worker</button>
+      <button class="station-btn" onclick="upgradeStation(${i})">Upgrade ($${s.upgradeCost})</button>
+      <button class="station-btn" onclick="toggleProductivity(${i})">% Time Working: ${Math.round(s.productivity * 100)}%</button>
     `;
 
     const barWrapper = document.createElement('div');
