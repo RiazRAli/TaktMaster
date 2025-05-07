@@ -467,27 +467,19 @@ function advanceTime() {
         station.processing.splice(j, 1);
         if (i === stations.length - 1) {
           completionTimestamps.push(time);
-          completionTimestamps = completionTimestamps.filter(t => time - t <= 60);
-          ///let weights = completionTimestamps.map(t => 1 - ((time - t) / 60));
-          // weights = weights.filter(w => w > 0);
-          // let weightedSum = weights.reduce((sum, w) => sum + w, 0);
-          // const taktValue = weightedSum > 0 ? +(60 / weightedSum).toFixed(1) : NaN;
-          // if (!isNaN(taktValue) && isFinite(taktValue)) {
-            // currentTaktTime = taktValue;
-            // taktTimeHistory.push(taktValue);
-          // }
-          completionTimestamps = completionTimestamps.filter(t => time - t <= 60);
+          if (completionTimestamps.length > 10) {
+            completionTimestamps.shift(); // Keep last 10 only
+          }
+          
           if (completionTimestamps.length >= 2) {
             let intervals = [];
-            for (let i = 1; i < completionTimestamps.length; i++) {
-              intervals.push(completionTimestamps[i] - completionTimestamps[i - 1]);
+            for (let k = 1; k < completionTimestamps.length; k++) {
+              intervals.push(completionTimestamps[k] - completionTimestamps[k - 1]);
             }
             const sum = intervals.reduce((a, b) => a + b, 0);
             currentTaktTime = +(sum / intervals.length).toFixed(1);
             taktTimeHistory.push(currentTaktTime);
           }
-
-
           if (taktTimeHistory.length > 60) taktTimeHistory.shift();
           lastProductTime = time;
           money += 100;
