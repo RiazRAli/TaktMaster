@@ -526,7 +526,7 @@ if (station.workers > 1) {
 } else if (station.workers === 1) {
   effective = station.productivity || 1;
 }
-let capacity = Math.floor(effective);
+let capacity = Math.ceil(effective);
 
     while (station.processing.length < capacity && station.queue.length > 0) {
       station.processing.push(station.queue.shift());
