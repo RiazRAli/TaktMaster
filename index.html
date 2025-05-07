@@ -280,7 +280,8 @@ function updateUI() {
   document.getElementById("timer").innerText = time < 60 ? `${time}` : `${Math.floor(time / 60)}m ${time % 60}s`;
   document.getElementById("taktTime").innerHTML = `<span style='color: yellow;'>${taktTimeGoal}</span> <span style='color: #00ff00;'>| Current: ${currentTaktTime}s</span>`;
   document.getElementById("totalProduced").innerText = totalProduced;
-  document.getElementById("workerCost").innerText = totalWorkerCost;
+  document.getElementById("workerCost").innerText = Math.round(totalWorkerCost);
+
 
   const factory = document.getElementById("factory");
   factory.innerHTML = '';
