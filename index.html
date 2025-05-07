@@ -197,6 +197,35 @@
       </div>
     </div>
 
+    <div style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
+      <button id="rulesBtn" style="font-size: 1rem; padding: 0.5rem 1rem;">📘 Rules</button>
+      <div id="rulesTooltip" style="
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 5px;
+        background: #111;
+        color: #0f0;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid #0f0;
+        border-radius: 5px;
+        width: 300px;
+        display: none;
+        box-shadow: 0 0 6px #0f0;
+      ">
+        📦 Parts arrive regularly.<br>
+        👷 Assign workers to stations.<br>
+        ⚙️ Upgrade to increase capacity.<br>
+        🕐 Match the takt time goal.<br>
+        🚫 Overstock = penalty!<br>
+        💰 Stay out of debt.<br>
+        🎯 Hold stable takt for 60s to win.
+      </div>
+    </div>
+
+
     <div class="money-time">
       <div>💰 Money: $<span id="money">1000</span></div>
       <div>⏱️ Time: <span id="timer">0</span>s</div>
@@ -761,6 +790,18 @@ window.addEventListener('keydown', function(e) {
     showWinMessage();
   }
 });
+
+const rulesBtn = document.getElementById('rulesBtn');
+const rulesTooltip = document.getElementById('rulesTooltip');
+
+rulesBtn.addEventListener('mouseenter', () => {
+  rulesTooltip.style.display = 'block';
+});
+
+rulesBtn.addEventListener('mouseleave', () => {
+  rulesTooltip.style.display = 'none';
+});
+
 
 </script>
 </body>
