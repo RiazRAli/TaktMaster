@@ -659,13 +659,20 @@ stations.forEach(station => {
 
 if (totalPenalty > 0) {
   money -= totalPenalty;
-  const penaltyNotice = document.getElementById('penaltyNotice');
-  penaltyNotice.innerText = `Overstock Penalty: -$${totalPenalty}`;
-  penaltyNotice.style.display = 'block';
-  clearTimeout(penaltyNotice.timeout);
-  penaltyNotice.timeout = setTimeout(() => {
-    penaltyNotice.style.display = 'none';
-  }, 2000);
+
+  const notice = document.getElementById('penaltyNotice');
+  const currentText = notice.innerText;
+  const newText = `Overstock Penalty: -$${totalPenalty}`;
+
+  // Only update the message if it's not the same as last tick
+  if (currentText !== newText) {
+    notice.innerText = newText;
+    notice.style.display = 'block';
+    clearTimeout(notice.timeout);
+    notice.timeout = setTimeout(() => {
+      notice.style.display = 'none';
+    }, 2000);
+  }
 }
 
 
