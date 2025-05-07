@@ -267,6 +267,9 @@ let taktTimeHistory = [];
 let winStartTime = null;
 let hasBeenInLoss = false;
 let gameWon = false;
+let negativeMoneyTime = 0;
+const maxNegativeTime = 120;
+
 
 
 function randWorkerCost() {
@@ -511,6 +514,12 @@ let totalCostPerSecond = stations.reduce((sum, s) => {
 }, 0);
 money -= +totalCostPerSecond.toFixed(2);
   time++;
+  if (money < 0) {
+    negativeMoneyTime++;
+  } else {
+    negativeMoneyTime = 0;
+  }
+ 
   if (time >= nextArrival) {
     stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
     const minCycle = Math.min(...stations.map(s => s.baseTime));
@@ -655,8 +664,17 @@ if (totalPenalty > 0) {
     penaltyNotice.style.display = 'none';
   }, 2000);
 }  
+
+  if (negativeMoneyTime >= maxNegativeTime) {
+  clearInterval(timerInterval);
+  showLoseMessage();
+  return;
+}
+  
 updateUI();
 }
+
+
 
 
 
@@ -703,6 +721,24 @@ function showWinMessage() {
       <p>Total Time: ${Math.floor(time / 60)}m ${time % 60}s</p>
       <p>Final Money: $${Math.round(money)}</p>
       <button onclick="dismissWinMessage(this)">🔁 Play Again</button>
+    </div>
+  `;
+  document.body.appendChild(message);
+}
+
+  function showLoseMessage() {
+  const message = document.createElement('div');
+  message.className = 'win-message';
+  message.innerHTML = `
+    <div>
+      <h2 style="color: red;">💀 GAME OVER 💀</h2>
+      <p style="font-size: 0.6rem; margin-top: -1rem; margin-bottom: 1rem;">
+        You stayed in debt for more than 2 minutes.
+      </p>
+      <p>Total Produced: ${totalProduced} units</p>
+      <p>Total Time: ${Math.floor(time / 60)}m ${time % 60}s</p>
+      <p>Final Money: $${Math.round(money)}</p>
+      <button onclick="dismissWinMessage(this)">🔁 Try Again</button>
     </div>
   `;
   document.body.appendChild(message);
