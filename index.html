@@ -191,8 +191,8 @@
 
     <div style="display: flex; align-items: center;">
       <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: #00ff00; line-height: 1;">Takt Time (s)</div>
-      <div style="display: flex; flex-direction: column; align-items: flex-start;">
-        <canvas id="taktChart" width="600" height="100" style="background: #111; border: 2px solid #00ff00; margin: 1rem 0 0 0; display: block;"></canvas>
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+          <canvas id="taktChart" width="600" height="100" style="background: #111; border: 2px solid #00ff00; margin: 1rem 0 0 0; display: block;"></canvas>
         <div style="font-size: 0.6rem; color: #00ff00; margin-left: 3.2rem;">Time →</div>
       </div>
     </div>
@@ -625,11 +625,8 @@ if (totalPenalty > 0) {
   penaltyNotice.timeout = setTimeout(() => {
     penaltyNotice.style.display = 'none';
   }, 2000);
-}
-
-});
-  
-  updateUI();
+}  
+updateUI();
 }
 
 
