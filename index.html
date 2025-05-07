@@ -637,9 +637,7 @@ money -= +totalCostPerSecond.toFixed(2);
     }
   }
 // Overstock Penalty Logic
-
-let totalPenalty = 0;
-let penaltyOccurred = false;
+let totalPenaltyThisTick = 0;
 
 stations.forEach(station => {
   const overstock = station.queue.length - 5;
@@ -651,18 +649,17 @@ stations.forEach(station => {
     if (station.penaltyCounter >= penaltyInterval) {
       const penalty = overstock * 5;
       money -= penalty;
-      totalPenalty += penalty;
+      totalPenaltyThisTick += penalty;
       station.penaltyCounter = 0;
-      penaltyOccurred = true;
     }
   } else {
     station.penaltyCounter = 0;
   }
 });
 
-if (penaltyOccurred && totalPenalty > 0) {
+if (totalPenaltyThisTick > 0) {
   const penaltyNotice = document.getElementById('penaltyNotice');
-  penaltyNotice.innerText = `Overstock Penalty: -$${totalPenalty}`;
+  penaltyNotice.innerText = `Overstock Penalty: -$${totalPenaltyThisTick}`;
   penaltyNotice.style.display = 'block';
   clearTimeout(penaltyNotice.timeout);
   penaltyNotice.timeout = setTimeout(() => {
@@ -671,16 +668,6 @@ if (penaltyOccurred && totalPenalty > 0) {
 }
 
 
-if (totalPenalty > 0) {
-  money -= totalPenalty;
-  const penaltyNotice = document.getElementById('penaltyNotice');
-  penaltyNotice.innerText = `Overstock Penalty: -$${totalPenalty}`;
-  penaltyNotice.style.display = 'block';
-  clearTimeout(penaltyNotice.timeout);
-  penaltyNotice.timeout = setTimeout(() => {
-    penaltyNotice.style.display = 'none';
-  }, 2000);
-}
 
 
   if (negativeMoneyTime >= maxNegativeTime) {
