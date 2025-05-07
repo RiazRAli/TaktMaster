@@ -186,7 +186,7 @@
       z-index: 999;
       box-shadow: 0 0 8px #ff0000;
     ">
-      Overstock Penalty: -$0
+      
     </div>
 
     <div style="display: flex; align-items: center;">
@@ -661,11 +661,8 @@ if (totalPenalty > 0) {
   money -= totalPenalty;
 
   const penaltyNotice = document.getElementById('penaltyNotice');
-  penaltyNotice.innerHTML = `
-    <strong>Overstock Penalty</strong><br>
-    ${penaltyMessages.join('<br>')}<br>
-    <em>Total Penalty: -$${totalPenalty}</em>
-  `;
+  penaltyNotice.innerHTML = `Overstock Penalty: -$${totalPenalty}<br>${penaltyMessages.join('<br>')}`;
+
   penaltyNotice.style.display = 'block';
 
   clearTimeout(penaltyNotice.timeout);
