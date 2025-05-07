@@ -284,6 +284,10 @@ function randWorkerCost() {
   }
 }
 
+function randCycle() {
+  return Math.floor(Math.random() * 13 + 8); // 8 to 20 seconds
+}
+  
 const stations = [
   { name: 'Cutting', baseTime: randCycle(), workerCost: randWorkerCost(), workers: 1, maxWorkers: 3, upgradeCost: 500, queue: [], processing: [], productivity: 1.0 },
   { name: 'Assembly', baseTime: randCycle(), workerCost: randWorkerCost(), workers: 1, maxWorkers: 4, upgradeCost: 1000, queue: [], processing: [], productivity: 1.0 },
@@ -291,9 +295,7 @@ const stations = [
   { name: 'Packing', baseTime: randCycle(), workerCost: randWorkerCost(), workers: 1, maxWorkers: 3, upgradeCost: 700, queue: [], processing: [], productivity: 1.0 }
 ];
 
-function randCycle() {
-  return Math.floor(Math.random() * 13 + 8); // 8 to 20 seconds
-}
+
 
 function randArrivalInterval() {
   const minCycle = Math.min(...stations.map(s => s.baseTime));
