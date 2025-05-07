@@ -447,30 +447,26 @@ function toggleSpeed() {
 }
 
 function advanceTime() {
-  // Subtract $80 per worker per minute (i.e., $1.33 per second)
   let totalWorkers = stations.reduce((sum, s) => sum + s.workers, 0);
   money -= +(totalWorkers * 45 / 60).toFixed(2);
   time++;
   if (time >= nextArrival) {
-  stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
-
-  const minCycle = Math.min(...stations.map(s => s.baseTime));
-  const variation = Math.random() * 2;
-  nextArrival = Math.max(time + 1, time + Math.floor(minCycle - variation)); // ensures nextArrival > current time
-}
+    stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
+    const minCycle = Math.min(...stations.map(s => s.baseTime));
+    const variation = Math.random() * 2;
+    nextArrival = Math.max(time + 1, time + Math.floor(minCycle - variation));
+  }
 
   for (let i = 0; i < stations.length; i++) {
     const station = stations[i];
+
     for (let j = station.processing.length - 1; j >= 0; j--) {
       station.processing[j].remaining--;
       if (station.processing[j].remaining <= 0) {
         station.processing.splice(j, 1);
         if (i === stations.length - 1) {
           completionTimestamps.push(time);
-          if (completionTimestamps.length > 10) {
-            completionTimestamps.shift(); // Keep last 10 only
-          }
-          
+          if (completionTimestamps.length > 10) completionTimestamps.shift();
           if (completionTimestamps.length >= 2) {
             let intervals = [];
             for (let k = 1; k < completionTimestamps.length; k++) {
@@ -485,72 +481,83 @@ function advanceTime() {
           money += 100;
           totalProduced++;
         } else {
-          // Animate transport between stations
-const factoryChildren = document.getElementById('factory').children;
-const transports = document.getElementById('transports');
-const icon = document.createElement('div');
-icon.textContent = '📦';
-icon.style.position = 'absolute';
-icon.style.fontSize = '1.2rem';
-icon.style.transition = `transform 3s linear`;
+          const factoryChildren = document.getElementById('factory').children;
+          const transports = document.getElementById('transports');
+          const icon = document.createElement('div');
+          icon.textContent = '📦';
+          icon.style.position = 'absolute';
+          icon.style.fontSize = '1.2rem';
+          icon.style.transition = `transform 3s linear`;
 
-const from = factoryChildren[i].getBoundingClientRect();
-const to = factoryChildren[i + 1].getBoundingClientRect();
-const containerRect = transports.getBoundingClientRect();
+          const from = factoryChildren[i].getBoundingClientRect();
+          const to = factoryChildren[i + 1].getBoundingClientRect();
+          const containerRect = transports.getBoundingClientRect();
 
-const startX = from.right - containerRect.left;
-const startY = from.top - containerRect.top;
-const endX = to.left - containerRect.left;
-const endY = to.top - containerRect.top;
+          const startX = from.right - containerRect.left;
+          const startY = from.top - containerRect.top;
+          const endX = to.left - containerRect.left;
+          const endY = to.top - containerRect.top;
 
-icon.style.left = `${startX}px`;
-icon.style.top = `${startY}px`;
-transports.appendChild(icon);
+          icon.style.left = `${startX}px`;
+          icon.style.top = `${startY}px`;
+          transports.appendChild(icon);
 
-requestAnimationFrame(() => {
-  icon.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
-});
+          requestAnimationFrame(() => {
+            icon.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
+          });
 
-const delay = 3000 + ((Math.random() - 0.5) * 2 * 1000 * variability);
-setTimeout(() => {
-  icon.remove();
-  stations[i + 1].queue.push({ remaining: stations[i + 1].baseTime + (Math.random() - 0.5) * 2 * variability });
-  updateUI();
-}, delay);
+          const delay = 3000 + ((Math.random() - 0.5) * 2 * 1000 * variability);
+          setTimeout(() => {
+            icon.remove();
+            stations[i + 1].queue.push({ remaining: stations[i + 1].baseTime + (Math.random() - 0.5) * 2 * variability });
+            updateUI();
+          }, delay);
         }
       }
     }
-let effective = 0;
-if (station.workers > 1) {
-  effective = (station.workers - 1) + (station.productivity || 1);
-} else if (station.workers === 1) {
-  effective = station.productivity || 1;
-}
-let capacity = Math.ceil(effective);
 
+    let effective = 0;
+    if (station.workers > 1) {
+      effective = (station.workers - 1);
+      if (station.queue.length > 0) {
+        const part = station.queue[0];
+        if (!part.adjustedForProductivity) {
+          part.remaining *= 1 / (station.productivity || 1);
+          part.adjustedForProductivity = true;
+        }
+        effective += 1; // partial worker handles one item at slower speed
+      }
+    } else if (station.workers === 1) {
+      if (station.queue.length > 0) {
+        const part = station.queue[0];
+        if (!part.adjustedForProductivity) {
+          part.remaining *= 1 / (station.productivity || 1);
+          part.adjustedForProductivity = true;
+        }
+      }
+      effective = station.productivity || 1;
+    }
+
+    let capacity = Math.ceil(effective);
     while (station.processing.length < capacity && station.queue.length > 0) {
       station.processing.push(station.queue.shift());
     }
   }
-  // --- WIN CONDITION CHECK ---
-if (!gameWon) {
-  const inRange = Math.abs(currentTaktTime - taktTimeGoal) <= 1.6;
-  const notBroke = money >= 0;
 
-  if (inRange && notBroke) {
-    winTimer++;
-  } else {
-    winTimer = 0; // reset if the condition breaks at any second
+  if (!gameWon) {
+    const inRange = Math.abs(currentTaktTime - taktTimeGoal) <= 1.6;
+    const notBroke = money >= 0;
+    if (inRange && notBroke) winTimer++;
+    else winTimer = 0;
+    if (winTimer >= 60) {
+      gameWon = true;
+      clearInterval(timerInterval);
+      showWinMessage();
+    }
   }
-
-  if (winTimer >= 60) {
-    gameWon = true;
-    clearInterval(timerInterval);
-    showWinMessage();
-  }
-}
   updateUI();
 }
+
 
 function resetGame() {
   const slider = document.getElementById('variabilitySlider');
