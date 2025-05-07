@@ -604,10 +604,6 @@ money -= +totalCostPerSecond.toFixed(2);
       showWinMessage();
     }
   }
-
-  
-  updateUI();
-}
 // Overstock Penalty Logic
 let totalPenalty = 0;
 stations.forEach(station => {
@@ -640,6 +636,10 @@ if (totalPenalty > 0) {
 }
 
 });
+  
+  updateUI();
+}
+
 
 
 function resetGame() {
