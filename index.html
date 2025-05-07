@@ -639,26 +639,23 @@ money -= +totalCostPerSecond.toFixed(2);
   }
 // Overstock Penalty Logic
 // === Overstock Penalty Logic ===
-let overstockedUnits = 0;
-let anyPenalized = false;
+let totalOverstock = 0;
 
 stations.forEach(station => {
   const overstock = station.queue.length - 5;
   if (overstock > 0) {
     station.penaltyCounter = (station.penaltyCounter || 0) + 1;
-    const penaltyInterval = station.baseTime;
-    if (station.penaltyCounter >= penaltyInterval) {
-      overstockedUnits += overstock;
+    if (station.penaltyCounter >= station.baseTime) {
+      totalOverstock += overstock;
       station.penaltyCounter = 0;
-      anyPenalized = true;
     }
   } else {
     station.penaltyCounter = 0;
   }
 });
 
-if (anyPenalized && overstockedUnits > 0) {
-  const totalPenalty = overstockedUnits * 5;
+if (totalOverstock > 0) {
+  const totalPenalty = totalOverstock * 5;
   money -= totalPenalty;
 
   const penaltyNotice = document.getElementById('penaltyNotice');
