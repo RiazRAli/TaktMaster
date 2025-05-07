@@ -461,7 +461,16 @@ function advanceTime() {
     const station = stations[i];
 
     for (let j = station.processing.length - 1; j >= 0; j--) {
-      station.processing[j].remaining--;
+      if (station.workers === 1) {
+        station.processing[j].remaining -= station.productivity || 1;
+      } else if (j >= station.processing.length - 1) {
+        // Last worker = part-time
+        station.processing[j].remaining -= station.productivity || 1;
+      } else {
+        // Full-time worker
+        station.processing[j].remaining -= 1;
+      }
+
       if (station.processing[j].remaining <= 0) {
         station.processing.splice(j, 1);
         if (i === stations.length - 1) {
