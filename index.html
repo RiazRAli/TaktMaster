@@ -467,8 +467,8 @@ function advanceTime() {
         station.processing.splice(j, 1);
         if (i === stations.length - 1) {
           completionTimestamps.push(time);
-          completionTimestamps = completionTimestamps.filter(t => time - t <= 60);
-          let weights = completionTimestamps.map(t => 1 - ((time - t) / 60));
+          completionTimestamps = completionTimestamps.filter(t => time - t <= 30);
+          let weights = completionTimestamps.map(t => 1 - ((time - t) / 30));
           weights = weights.filter(w => w > 0);
           let weightedSum = weights.reduce((sum, w) => sum + w, 0);
           const taktValue = weightedSum > 0 ? +(60 / weightedSum).toFixed(1) : NaN;
@@ -673,7 +673,7 @@ function checkWinCondition() {
   }
 }
 
-// Cheat code: Ctrl + Alt + W to trigger win condition manually
+// Ctrl + Alt + W
 window.addEventListener('keydown', function(e) {
   if (e.ctrlKey && e.altKey && e.key === 'w') {
     gameWon = true;
