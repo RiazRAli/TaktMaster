@@ -58,7 +58,7 @@
 }
 
 .station-btn {
-  font-size: 0.45rem 
+  font-size: 0.45rem; 
   padding: 0.2rem 0.4rem;
   margin-top: 0.15rem;
   margin-bottom: 0.15rem;
@@ -550,7 +550,7 @@ money -= +totalCostPerSecond.toFixed(2);
   }
  
   if (time >= nextArrival) {
-    if (suplyOn) {
+    if (supplyOn) {
       stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
     }
     const minCycle = Math.min(...stations.map(s => s.baseTime));
