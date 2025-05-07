@@ -514,7 +514,7 @@ let totalCostPerSecond = stations.reduce((sum, s) => {
 }, 0);
 money -= +totalCostPerSecond.toFixed(2);
   time++;
-  if (money < 0) {
+  if (money < -0.01) {
     negativeMoneyTime++;
   } else {
     negativeMoneyTime = 0;
