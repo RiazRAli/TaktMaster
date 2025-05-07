@@ -447,8 +447,17 @@ function toggleSpeed() {
 }
 
 function advanceTime() {
-  let totalWorkers = stations.reduce((sum, s) => sum + s.workers, 0);
-  money -= +(totalWorkers * 45 / 60).toFixed(2);
+let totalCostPerSecond = stations.reduce((sum, s) => {
+  if (s.workers === 1) {
+    return sum + (s.productivity * 45 / 60); // single worker, part-time
+  } else if (s.workers > 1) {
+    const fullTimeCost = (s.workers - 1) * (45 / 60); // full-time workers
+    const partTimeCost = (s.productivity * 45 / 60); // last worker
+    return sum + fullTimeCost + partTimeCost;
+  }
+  return sum;
+}, 0);
+money -= +totalCostPerSecond.toFixed(2);
   time++;
   if (time >= nextArrival) {
     stations[0].queue.push({ remaining: stations[0].baseTime + (Math.random() - 0.5) * 2 * variability });
