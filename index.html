@@ -195,6 +195,28 @@
         padding: 0.6rem 1.2rem;
       }
     }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    .gear-animation {
+      animation: spin 2s linear infinite;
+      display: inline-block;
+    }
+    
+    .zzz-animation {
+      animation: float 1.5s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    
   </style>
 </head>
 <body>
@@ -351,11 +373,12 @@ function updateUI() {
         ${
           active
             ? (playing
-                ? '<span class="gear-animation" style="font-size: 1.5rem; display: inline-block; margin-bottom: 0.5rem;">⚙️</span>'
+                ? '<span class="gear-animation" style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚙️</span>'
                 : '<div style="font-weight: bold; color: red; margin-bottom: 0.5rem;">Processing</div>')
-            : '<span class="zzz-animation" style="font-size: 1.5rem; display: inline-block; margin-bottom: 0.5rem;">💤</span>'
+            : '<span class="zzz-animation" style="font-size: 1.5rem; margin-bottom: 0.5rem;">💤</span>'
         }
       </div>
+
       <h3 style="margin-bottom: 0.2rem; text-align: center;">${s.name}</h3>
       <p style="margin: 0; text-align: center;">Cycle Time: ${s.baseTime}s</p>
       <p style="margin: 0; text-align: center;">Workers: (${s.workers}/${s.maxWorkers})</p>
