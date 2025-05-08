@@ -90,58 +90,25 @@
       box-shadow: 0 0 15px var(--button-hover-bg) inset, 0 0 8px var(--button-hover-bg);
     }
 
-    canvas {
-      background-color: var(--chart-bg);
-      border: 2px solid var(--chart-border);
-      width: 100%;
-      height: auto;
-      max-width: 600px;
-      z-index: 0;
+    #rulesTooltip {
+      text-align: left;
+      font-size: 0.6rem;
+      padding: 0.6rem;
+      line-height: 1.6;
+      display: none;
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+      width: 300px;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      z-index: 10;
     }
 
-    #factory {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 4rem;
-      padding: 1rem;
-    }
-
-    #togglePlayBtn,
-    #toggleSupplyBtn,
-    #speedBtn,
-    #resetBtn {
-      font-size: 1.2rem;
-      padding: 0.8rem 1.5rem;
-    }
-
-    #controls {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .gear-animation {
-      animation: spin 2s linear infinite;
-      display: inline-block;
-    }
-
-    .zzz-animation {
-      animation: float 1.5s ease-in-out infinite;
-      display: inline-block;
+    #rulesBtn:hover + #rulesTooltip {
+      display: block;
     }
 
     .money-time {
@@ -171,36 +138,12 @@
       max-width: 90vw;
       margin: 0.5rem auto;
       text-align: center;
-      display: block;
-      visibility: visible;
-    }
-
-    #rulesTooltip {
-      text-align: left;
-      font-size: 0.6rem;
-      padding: 0.6rem;
-      line-height: 1.6;
-      display: none;
-      visibility: hidden;
-      background: #111;
-      color: #0f0;
-      border: 1px solid #0f0;
-      border-radius: 5px;
-      width: 300px;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      z-index: 10;
     }
 
     @media (max-width: 768px) {
-      header {
-        padding-top: 1.5rem;
-      }
-
       header h1 {
         font-size: 1rem;
-        padding: 1rem 1rem 0.5rem 1rem;
+        padding: 1rem;
       }
 
       .station {
@@ -209,35 +152,13 @@
         font-size: 0.5rem;
       }
 
-      button {
-        font-size: 0.8rem;
-        padding: 0.4rem 1rem;
-      }
-
       .money-time {
         font-size: 0.85rem;
       }
 
-      #controls {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      canvas {
-        width: 100% !important;
-        height: auto !important;
-      }
-
-      #factory {
-        gap: 1rem;
-        padding: 0.5rem;
-      }
-
-      #arrivalCountdown {
-        font-size: 0.75rem;
-        margin-top: 0.5rem;
-        text-align: center;
-        position: static;
+      button {
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
       }
     }
   </style>
@@ -278,6 +199,9 @@
       </div>
     </div>
   </header>
+</body>
+</html>
+
 
 
 <section id="controls">
