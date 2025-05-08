@@ -50,7 +50,7 @@
     header {
       background: var(--header-bg);
       color: var(--text-color);
-      padding: 0.5rem;
+      padding: 1.5rem 0.5rem 0.5rem 0.5rem;
       text-align: center;
       border-bottom: 4px double var(--text-color);
       position: relative;
@@ -59,7 +59,7 @@
 
     header h1 {
       margin: 0;
-      padding: 0.5rem 2rem 0.5rem 2rem;
+      padding: 1rem 2rem 0.5rem 2rem;
       font-size: 1.2rem;
       white-space: normal;
     }
@@ -167,12 +167,17 @@
       background-color: rgba(0, 0, 0, 0.7);
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
+      max-width: 90vw;
     }
 
     @media (max-width: 768px) {
+      header {
+        padding-top: 3rem;
+      }
+
       header h1 {
         font-size: 1rem;
-        padding-top: 2.5rem;
+        padding: 2rem 1rem 0.5rem 1rem;
       }
 
       .station {
@@ -210,7 +215,6 @@
         bottom: 0.5rem;
         right: 0.5rem;
         font-size: 0.75rem;
-        max-width: 90vw;
         white-space: normal;
         text-align: right;
       }
