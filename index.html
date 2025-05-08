@@ -87,6 +87,28 @@
       border-color: var(--button-hover-border);
       box-shadow: 0 0 15px var(--button-hover-bg) inset, 0 0 8px var(--button-hover-bg);
     }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    .gear-animation {
+      animation: spin 2s linear infinite;
+      display: inline-block;
+    }
+    
+    .zzz-animation {
+      animation: float 1.5s ease-in-out infinite;
+      display: inline-block;
+    }
+
+
+    
     canvas {
       background-color: var(--chart-bg);
       border: 2px solid var(--chart-border);
