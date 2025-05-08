@@ -173,9 +173,6 @@
       text-align: center;
       display: block;
       visibility: visible;
-      position: absolute;
-      right: 10px;
-      top: 10px;
     }
 
     #rulesTooltip {
@@ -239,8 +236,8 @@
       #arrivalCountdown {
         font-size: 0.75rem;
         margin-top: 0.5rem;
-        position: static;
         text-align: center;
+        position: static;
       }
     }
   </style>
@@ -276,11 +273,12 @@
         <div>📦 Total Produced: <span id="totalProduced">0</span> units</div>
         <div>💸 Worker Overhead: $<span id="workerCost">0</span>/min</div>
       </div>
-    </div>
-    <div id="arrivalCountdown">
-      Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate;">0</span><span>s</span>
+      <div id="arrivalCountdown">
+        Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate;">0</span><span>s</span>
+      </div>
     </div>
   </header>
+
 
 <section id="controls">
   <button id="togglePlayBtn" onclick="togglePlay()">▶️ Play</button>
