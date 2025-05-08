@@ -295,6 +295,8 @@ const maxNegativeTime = 120;
 let gameWon = false;
 let gameLost = false;
 let supplyOn = true;
+let winTimer = 0;
+
 
 
 
@@ -717,6 +719,8 @@ function toggleSupply() {
 
 function resetGame() {
   const slider = document.getElementById('variabilitySlider');
+  winTimer = 0;
+  winStartTime = null;
   slider.disabled = false;
   gameWon = false;
   gameLost = false;
@@ -726,6 +730,7 @@ function resetGame() {
   time = 0;
   totalProduced = 0;
   playing = false;
+  document.querySelectorAll('.win-message').forEach(m => m.remove());
   document.getElementById("togglePlayBtn").innerText = "▶️ Play";
   document.getElementById("speedBtn").innerText = "⏩ Speed: 1x";
   speed = 1000;
