@@ -50,7 +50,7 @@
     header {
       background: var(--header-bg);
       color: var(--text-color);
-      padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+      padding: 2rem 0.5rem 1rem 0.5rem;
       text-align: center;
       border-bottom: 4px double var(--text-color);
       position: relative;
@@ -59,7 +59,7 @@
 
     header h1 {
       margin: 0;
-      padding: 1rem 2rem 0.5rem 2rem;
+      padding: 2.5rem 1rem 1rem 1rem;
       font-size: 1.2rem;
       white-space: normal;
     }
@@ -95,6 +95,7 @@
       width: 100%;
       height: auto;
       max-width: 600px;
+      z-index: 0;
     }
 
     #factory {
@@ -148,6 +149,9 @@
       gap: 0.3rem;
       padding: 0 1rem;
       font-size: 0.8rem;
+      color: var(--text-color);
+      z-index: 1;
+      position: relative;
     }
 
     .money-time .row {
@@ -164,7 +168,7 @@
       font-weight: bold;
       color: red;
       z-index: 10;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.6);
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
       max-width: 90vw;
@@ -172,12 +176,12 @@
 
     @media (max-width: 768px) {
       header {
-        padding-top: 3rem;
+        padding-top: 4.5rem;
       }
 
       header h1 {
         font-size: 1rem;
-        padding: 2rem 1rem 0.5rem 1rem;
+        padding: 3rem 1rem 0.5rem 1rem;
       }
 
       .station {
@@ -192,7 +196,8 @@
       }
 
       .money-time {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
+        color: var(--text-color);
       }
 
       #controls {
@@ -217,6 +222,7 @@
         font-size: 0.75rem;
         white-space: normal;
         text-align: right;
+        background-color: rgba(0, 0, 0, 0.5);
       }
     }
   </style>
