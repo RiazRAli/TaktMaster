@@ -855,6 +855,32 @@ function toggleTheme() {
       html.setAttribute('data-theme', current === 'retro' ? 'modern' : 'retro');
     }
 
+  <div id="winMessage" class="win-message" style="display: none;">
+  <h2>🎉 YOU WIN! 🎉</h2>
+  <p>You held takt time within ±1.6s and stayed in the green!</p>
+  <button onclick="dismissWinMessage()">🔁 Play Again</button>
+</div>
+
+<div id="loseMessage" class="win-message" style="display: none; background: red; color: white; box-shadow: 0 0 20px #ff0000;">
+  <h2>💀 GAME OVER 💀</h2>
+  <p>You stayed in debt for more than 2 minutes.</p>
+  <button onclick="dismissWinMessage()">🔁 Try Again</button>
+</div>
+
+<script>
+function showWinMessage() {
+  document.getElementById('winMessage').style.display = 'block';
+}
+
+function showLoseMessage() {
+  document.getElementById('loseMessage').style.display = 'block';
+}
+
+function dismissWinMessage() {
+  document.getElementById('winMessage').style.display = 'none';
+  document.getElementById('loseMessage').style.display = 'none';
+  resetGame();
+}
 </script>
 </body>
 </html>
