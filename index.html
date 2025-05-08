@@ -338,10 +338,20 @@ function updateUI() {
     const active = s.processing.length > 0;
     div.className = 'station' + (active ? ' active' : '') + (!playing ? ' paused' : '');
     div.innerHTML = `
-      ${active ? (playing ? '<div class="gear-animation" style="margin-bottom: 0.5rem; font-size: 1.5rem; text-align: center;">⚙️</div>' : '<div style="margin-bottom: 0.5rem; font-weight: bold; color: red;">Processing</div>') : '<div class="zzz-animation" style="margin-bottom: 0.5rem; font-size: 1.5rem; text-align: center;">💤</div>'}
-      <h3 style="margin-bottom: 0.2rem;">${s.name}</h3><p style="margin-top: 0; margin-bottom: 0;">Cycle Time: ${s.baseTime}s</p><p style="margin-top: 0;">Workers: (${s.workers}/${s.maxWorkers})</p>
+      ${
+        active
+          ? (playing
+              ? '<div style="margin-bottom: 0.5rem; font-size: 1.5rem; text-align: center;"><span class="gear-animation">⚙️</span></div>'
+              : '<div style="margin-bottom: 0.5rem; font-weight: bold; color: red;">Processing</div>')
+          : '<div style="margin-bottom: 0.5rem; font-size: 1.5rem; text-align: center;"><span class="zzz-animation">💤</span></div>'
+      }
+      <h3 style="margin-bottom: 0.2rem;">${s.name}</h3>
+      <p style="margin-top: 0; margin-bottom: 0;">Cycle Time: ${s.baseTime}s</p>
+      <p style="margin-top: 0;">Workers: (${s.workers}/${s.maxWorkers})</p>
       <div style='font-size: 1.2rem; margin-bottom: 0.3rem;'>${Array.from({ length: s.workers }, (_, idx) => idx === s.workers - 1 ? `<span title='% Time Working: ${Math.round(s.productivity * 100)}%' style='color:${s.productivity < 1 ? "orange" : "inherit"};'>👷</span>` : '👷').join('')}</div>
       <p>Queue: ${s.queue.length} units</p>
+    `;
+
       <div style='font-size: 1rem;'>${'📦'.repeat(Math.min(10, s.queue.length))}${s.queue.length > 10 ? ' ...' : ''}</div>
       <p>Processing: ${s.processing.length} units</p>
       <button class="station-btn" onclick="addWorker(${i})">Add Worker ($${s.workerCost})</button>
