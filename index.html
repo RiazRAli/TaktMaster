@@ -75,6 +75,15 @@
       margin: 0.5rem;
     }
 
+    #factory {
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
     button {
       background-color: var(--button-bg);
       border: 3px double white;
@@ -147,8 +156,7 @@
       }
 
       .station {
-        width: 100%;
-        max-width: none;
+        width: 140px;
         font-size: 0.5rem;
       }
 
@@ -159,6 +167,11 @@
       button {
         font-size: 0.8rem;
         padding: 0.4rem 1rem;
+      }
+
+      #factory {
+        flex-wrap: nowrap;
+        overflow-x: auto;
       }
     }
   </style>
@@ -199,8 +212,13 @@
       </div>
     </div>
   </header>
+
+  <section id="factory">
+    <!-- Station elements dynamically inserted here -->
+  </section>
 </body>
 </html>
+
 
 
 
