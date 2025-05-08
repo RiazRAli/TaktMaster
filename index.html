@@ -63,7 +63,25 @@
       box-shadow: 0 0 20px #ff9900;
     }
 
-    .win-message button {
+    .lose-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: red;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      padding: 1rem 2rem;
+      border: 3px solid black;
+      border-radius: 10px;
+      z-index: 9999;
+      text-align: center;
+      box-shadow: 0 0 20px #ff0000;
+    }
+
+    .win-message button,
+    .lose-message button {
       margin-top: 1rem;
       font-size: 0.8rem;
       padding: 0.5rem 1rem;
@@ -71,8 +89,6 @@
       background: black;
       color: orange;
       cursor: pointer;
-    }
-    
     header {
       background: var(--header-bg);
       color: var(--text-color);
@@ -854,14 +870,14 @@ function toggleTheme() {
       const current = html.getAttribute('data-theme');
       html.setAttribute('data-theme', current === 'retro' ? 'modern' : 'retro');
     }
-
-  <div id="winMessage" class="win-message" style="display: none;">
+  
+<div id="winMessage" class="win-message" style="display: none;">
   <h2>🎉 YOU WIN! 🎉</h2>
   <p>You held takt time within ±1.6s and stayed in the green!</p>
   <button onclick="dismissWinMessage()">🔁 Play Again</button>
 </div>
 
-<div id="loseMessage" class="win-message" style="display: none; background: red; color: white; box-shadow: 0 0 20px #ff0000;">
+<div id="loseMessage" class="lose-message" style="display: none;">
   <h2>💀 GAME OVER 💀</h2>
   <p>You stayed in debt for more than 2 minutes.</p>
   <button onclick="dismissWinMessage()">🔁 Try Again</button>
@@ -869,7 +885,9 @@ function toggleTheme() {
 
 <script>
 function showWinMessage() {
-  document.getElementById('winMessage').style.display = 'block';
+  if (!gameLost) {
+    document.getElementById('winMessage').style.display = 'block';
+  }
 }
 
 function showLoseMessage() {
@@ -881,6 +899,7 @@ function dismissWinMessage() {
   document.getElementById('loseMessage').style.display = 'none';
   resetGame();
 }
+  
 </script>
 </body>
 </html>
