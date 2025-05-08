@@ -247,46 +247,10 @@
 </head>
 <body>
   <header>
-    <h1>TaktMaster: Factory Flow Simulator</h1>
     <button onclick="toggleTheme()" style="position:absolute; top:10px; left:10px; font-size:0.9rem; padding: 0.5rem 1rem;">🎨 Toggle Theme</button>
-
-    <div id="arrivalCountdown" style="position: absolute; right: 20px; top: 100px; font-size: 1.2rem; font-weight: bold; color: red;">
-      Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate; color: red;">0</span><span style="color: red;">s</span>
-    </div>
-
-    <div id="penaltyNotice" style="
-      position: fixed;
-      top: 250px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 0, 0, 0.85);
-      color: white;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.7rem;
-      padding: 0.5rem 1rem;
-      border: 2px solid #ff4444;
-      border-radius: 5px;
-      display: none;
-      z-index: 999;
-      box-shadow: 0 0 8px #ff0000;
-      line-height: 1.9;
-      white-space: pre-line;
-    ">
-      
-    </div>
-
-    <div style="display: flex; align-items: center;">
-      <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: #00ff00; line-height: 1;">Takt Time (s)</div>
-      <div style="display: flex; flex-direction: column; align-items: flex-start;">
-        <canvas id="taktChart" width="600" height="100" style="margin: 1rem 0 0 0; display: block;"></canvas>
-        <div style="font-size: 0.6rem; color: #00ff00; margin-left: 3.2rem;">Time →</div>
-      </div>
-    </div>
-    
-
     <div style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
       <button id="rulesBtn" style="font-size: 1rem; padding: 0.5rem 1rem;">📘 Rules</button>
-      <div id="rulesTooltip" style="...">
+      <div id="rulesTooltip">
         📦 <strong>Parts</strong> arrive at regular intervals.<br>
         👷 <strong>Hire workers</strong> to process parts at each station.<br>
         🔁 <strong>Cycle time</strong> is fixed—more workers = more capacity.<br>
@@ -300,10 +264,8 @@
         ⏸️ Use <strong>Pause</strong> to plan or reassign workers.<br>
         🛑 Use <strong>Stop Supply</strong> if parts pile up too fast.
       </div>
-
     </div>
-
-
+    <h1>TaktMaster: Factory Flow Simulator</h1>
     <div class="money-time">
       <div class="row">
         <div>💰 Money: $<span id="money">1000</span></div>
@@ -318,7 +280,6 @@
     <div id="arrivalCountdown">
       Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate;">0</span><span>s</span>
     </div>
-
   </header>
 
 <section id="controls">
