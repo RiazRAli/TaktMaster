@@ -1,190 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="retro">
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TaktMaster: Factory Flow Simulator</title>
   <style>
+    :root {
+      --bg-color: #000;
+      --text-color: #00ff00;
+      --header-bg: #111;
+      --station-bg: #111;
+      --station-border: #00ff00;
+      --station-shadow: #00ff00;
+      --button-bg: #000;
+      --button-color: #00ff00;
+      --button-border: white green;
+      --button-hover-bg: #00ff00;
+      --button-hover-color: #111;
+      --button-hover-border: #111;
+      --chart-border: #00ff00;
+    }
+
+    [data-theme="modern"] {
+      --bg-color: ##a0a0a0;
+      --text-color: #444;
+      --header-bg: #f1f1f1;
+      --station-bg: #2E8B81;
+      --station-border: #aed581;
+      --station-shadow: #aed581;
+      --button-bg: #A7E8BD;
+      --button-color: #000;
+      --button-border: #6FBF8F #A7E8BD;
+      --button-hover-bg: #6FBF8F;
+      --button-hover-color: #fff;
+      --button-hover-border: #5AA67C;
+      --chart-bg: #888888;
+      --util-bg: #888888;
+
+      --chart-border: #64b5f6;
+    }
+
     body {
       margin: 0;
       font-family: 'Press Start 2P', 'Courier New', monospace;
-      background: #000;
-      color: #00ff00;
+      background: var(--bg-color);
+      color: var(--text-color);
     }
     header {
-      background: #111;
-      color: #00ff00;
+      background: var(--header-bg);
+      color: var(--text-color);
       padding: 0.5rem;
       text-align: center;
-      border-bottom: 4px double #00ff00;
+      border-bottom: 4px double var(--text-color);
     }
-    #controls, #factory {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: space-around;
-      padding: 1rem;
-      flex-wrap: wrap;
-      position: relative;
-      top: 20px;
-    }
-    #togglePlayBtn,
-    #speedBtn,
-    #resetBtn {
-      font-size: 1.1rem;
-      padding: 0.6rem 1.2rem;
-      border-width: 4px;
-    }
-
-
-
- .station {
-  background: #111;
-  padding: 1rem;
-  border: 2px dashed #00ff00;
-  border-radius: 5px;
-  box-shadow: inset 0 0 10px #00ff00;
-  width: 190px;
-  height: 460px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0.25rem;
-  text-align: left;
-  color: #00ff00;
-  font-family: 'Courier New', monospace;
-  font-size: 1.1rem; /* Increased for station text */
-}
-
-.station-btn {
-  font-size: 0.45rem; 
-  padding: 0.2rem 0.4rem;
-  margin-top: 0.15rem;
-  margin-bottom: 0.15rem;
-}
-
-    .animation {
-      width: 24px;
-      height: 24px;
-      margin: 0 auto 0.5rem;
-      border: 3px solid #3498db;
-      border-top: 3px solid transparent;
-      border-radius: 50%;
-      display: none;
-    }
-    .active .animation {
-      display: block;
-      animation: spin 1s linear infinite;
-    }
-    .paused .animation {
-      animation-play-state: paused;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes flash {
-      0% { opacity: 1; }
-      100% { opacity: 0.4; }
-    }
-    button {
-      background-color: #000;
-      border: 3px double white;
-      border-color: white green;
-      color: #00ff00;
-      padding: 0.3rem 0.5rem;
-      cursor: pointer;
-      margin: 0.2rem;
-      font-family: 'Press Start 2P', 'Courier New', monospace;
-      text-align: center;
-      display: inline-block;
-      min-width: auto;
-      box-sizing: border-box;
-      font-size: 0.8rem;
-      line-height: 1;
-      text-shadow: 1px 1px 0 #000;
-      box-shadow: 0 0 6px #00ff00, inset 0 0 3px #000;
-      transition: all 0.2s ease-in-out;
-    }
-
-    button:hover {
-      background: #00ff00;
-      color: #111;
-      border-color: #111;
-      box-shadow: 0 0 15px #00ff00 inset, 0 0 8px #00ff00;
-    }
-
     .money-time {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.3rem;
       padding: 0 1rem;
+      font-size: 0.8rem;
+    }
+    .money-time .row {
+      display: flex;
+      gap: 2rem;
       flex-wrap: wrap;
+    }
+
+    .station {
+      background: var(--station-bg);
+      border: 2px dashed var(--station-border);
+      padding: 0.8rem;
+      box-shadow: inset 0 0 10px var(--station-shadow);
+      font-size: 0.6rem;
+      width: 170px;
+    }
+    button {
+      background-color: var(--button-bg);
+      border: 3px double white;
+      border-color: var(--button-border);
+      color: var(--button-color);
+    }
+    button:hover {
+      background: var(--button-hover-bg);
+      color: var(--button-hover-color);
+      border-color: var(--button-hover-border);
+      box-shadow: 0 0 15px var(--button-hover-bg) inset, 0 0 8px var(--button-hover-bg);
+    }
+    canvas {
+      background-color: var(--chart-bg);
+      border: 2px solid var(--chart-border);
+    }
+
+    #factory {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4rem;
+      padding: 1rem;
+    }
+
+    #togglePlayBtn,
+    #toggleSupplyBtn,
+    #speedBtn,
+    #resetBtn {
+      font-size: 1.2rem;
+      padding: 0.8rem 1.5rem;
+    }
+
+    #controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
       gap: 1rem;
+      padding: 1rem;
     }
-    header h1 {
-      animation: flicker 1.5s infinite alternate;
-    }
-    @keyframes flicker {
-      0% { text-shadow: 0 0 2px #0f0, 0 0 10px #0f0; }
-      100% { text-shadow: 0 0 5px #0f0, 0 0 20px #0f0; }
-    }
-    .zzz-animation {
-      animation: zzzFloat 1.2s ease-in-out infinite alternate;
-    }
-    @keyframes zzzFloat {
-      0% { transform: translateY(0); opacity: 0.7; }
-      100% { transform: translateY(-4px); opacity: 1; }
-    }
-  .gear-animation {
-  display: block;
-  animation: spin 1.2s linear infinite;
-}
 
-.win-message {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: orange;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  font-family: 'Press Start 2P', monospace;
-}
-
-.win-message > div {
-  background: #111;
-  border: 4px double orange;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 0 20px orange;
-  max-width: 90%;
-}
-
-.win-message button {
-  margin-top: 1.5rem;
-  padding: 0.5rem 1rem;
-  background: black;
-  border: 2px solid orange;
-  color: orange;
-  font-family: 'Press Start 2P', monospace;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-.win-message button:hover {
-  background: orange;
-  color: black;
-}
-
-</style>
+  </style>
 </head>
+
 <body>
   <header>
     <h1>TaktMaster: Factory Flow Simulator</h1>
+    <button onclick="toggleTheme()" style="position:absolute; top:10px; left:10px; font-size:0.9rem; padding: 0.5rem 1rem;">🎨 Toggle Theme</button>
 
     <div id="arrivalCountdown" style="position: absolute; right: 20px; top: 100px; font-size: 1.2rem; font-weight: bold; color: red;">
       Next Part Arrives In: <span id="countdown" style="animation: flash 1s infinite alternate; color: red;">0</span><span style="color: red;">s</span>
@@ -213,11 +152,12 @@
 
     <div style="display: flex; align-items: center;">
       <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: #00ff00; line-height: 1;">Takt Time (s)</div>
-        <div style="display: flex; flex-direction: column; align-items: flex-start;">
-          <canvas id="taktChart" width="600" height="100" style="background: #111; border: 2px solid #00ff00; margin: 1rem 0 0 0; display: block;"></canvas>
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <canvas id="taktChart" width="600" height="100" style="margin: 1rem 0 0 0; display: block;"></canvas>
         <div style="font-size: 0.6rem; color: #00ff00; margin-left: 3.2rem;">Time →</div>
       </div>
     </div>
+    
 
     <div style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
       <button id="rulesBtn" style="font-size: 1rem; padding: 0.5rem 1rem;">📘 Rules</button>
@@ -249,12 +189,17 @@
 
 
     <div class="money-time">
-      <div>💰 Money: $<span id="money">1000</span></div>
-      <div>⏱️ Time: <span id="timer">0</span>s</div>
-      <div>🎯 Takt Time Goal: <span id="taktTime" style="color: yellow;"></span></div>
-      <div>📦 Total Produced: <span id="totalProduced">0</span> units</div>
-      <div>💸 Worker Overhead: $<span id="workerCost">0</span>/min</div>
+      <div class="row">
+        <div>💰 Money: $<span id="money">1000</span></div>
+        <div>⏱️ Time: <span id="timer">0</span>s</div>
+        <div>🎯 Takt Time Goal: <span id="taktTime" style="color: yellow;"></span></div>
+      </div>
+      <div class="row">
+        <div>📦 Total Produced: <span id="totalProduced">0</span> units</div>
+        <div>💸 Worker Overhead: $<span id="workerCost">0</span>/min</div>
+      </div>
     </div>
+    
   </header>
 
 <section id="controls">
@@ -262,7 +207,7 @@
   <button id="toggleSupplyBtn" onclick="toggleSupply()">🛑 Stop Supply</button>
 
   <button onclick="toggleSpeed()" id="speedBtn">⏩ Speed: 1x</button>
-  <button onclick="resetGame()">🔄 Reset</button>
+  <button id="resetBtn" onclick="resetGame()">🔄 Reset</button>
   <div style="position: relative; display: flex; align-items: center; gap: 0.5rem; margin-left: 1rem;">
     <label for="variabilitySlider" style="margin: 0;">Variability:</label>
     <input id="variabilitySlider" type="range" min="0" max="2" step="0.1" value="0" style="accent-color: green;">
@@ -387,7 +332,7 @@ function updateUI() {
     barWrapper.innerHTML = `
       <div style='margin-top: 10px; margin-left: 10px;'>
         <label style='font-size: 0.7rem;'>% Util.</label>
-        <div style='height: 100px; width: 20px; border: 2px solid #00ff00; background: #111; position: relative;'>
+        <div style='height: 100px; width: 20px; border: 2px solid #00ff00; background: var(--util-bg); position: relative;'>
           <div style='position: absolute; bottom: 0; left: 0; width: 100%; height: ${barHeight}%; background: ${bgColor};'></div>
         </div>
       </div>
@@ -878,8 +823,12 @@ rulesBtn.addEventListener('mouseleave', () => {
   rulesTooltip.style.display = 'none';
 });
 
+function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', current === 'retro' ? 'modern' : 'retro');
+    }
 
 </script>
 </body>
 </html>
-
