@@ -263,7 +263,7 @@
         background: #111;
         color: #0f0;
         font-family: 'Press Start 2P', monospace;
-        font-size: 0.5rem;
+        font-size: 0.8rem;
         padding: 0.5rem;
         border: 1px solid #0f0;
         border-radius: 5px;
@@ -271,13 +271,18 @@
         display: none;
         box-shadow: 0 0 6px #0f0;
       ">
-        📦 Parts arrive regularly.<br>
-        👷 Assign workers to stations.<br>
-        ⚙️ Upgrade to increase capacity.<br>
-        🕐 Match the takt time goal.<br>
-        🚫 Overstock = penalty!<br>
-        💰 Stay out of debt.<br>
-        🎯 Hold stable takt for 60s to win.
+        📦 <strong>Parts</strong> arrive at regular intervals.<br>
+        👷 <strong>Hire workers</strong> to process parts at each station.<br>
+        🔁 <strong>Cycle time</strong> is fixed—more workers = more capacity.<br>
+        ⚙️ <strong>Upgrades</strong> increase max worker capacity.<br>
+        🕐 Match the <strong>takt time</strong> goal (avg production time).<br>
+        💸 <strong>Debt over 2 mins</strong> = Game Over.<br>
+        🚨 <strong>Overstock</strong> triggers penalty costs.<br>
+        🎯 Hold takt time stable (±1.6s) for 60s to win.<br>
+        🎮 <strong>Slider</strong> sets randomness. Locks after starting.<br><br>
+        💡 <em>Tips:</em><br>
+        ⏸️ Use <strong>Pause</strong> to plan or reassign workers.<br>
+        🛑 Use <strong>Stop Supply</strong> if parts pile up too fast.
       </div>
     </div>
 
@@ -728,7 +733,7 @@ let totalPenalty = 0;
 let penaltyMessages = [];
 
 stations.forEach(station => {
-  const overstock = station.queue.length - 5;
+  const overstock = station.queue.length - 10;
   if (overstock > 0) {
     const stationPenalty = overstock * 5;
     totalPenalty += stationPenalty;
