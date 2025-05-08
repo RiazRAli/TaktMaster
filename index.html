@@ -260,9 +260,9 @@
 <section id="controls">
   <button id="togglePlayBtn" onclick="togglePlay()">▶️ Play</button>
   <button id="toggleSupplyBtn" onclick="toggleSupply()">🛑 Stop Supply</button>
-
   <button onclick="toggleSpeed()" id="speedBtn">⏩ Speed: 1x</button>
-  <button onclick="resetGame()">🔄 Reset</button>
+  <button id="resetBtn" onclick="resetGame()">🔄 Reset</button>
+
   <div style="position: relative; display: flex; align-items: center; gap: 0.5rem; margin-left: 1rem;">
     <label for="variabilitySlider" style="margin: 0;">Variability:</label>
     <input id="variabilitySlider" type="range" min="0" max="2" step="0.1" value="0" style="accent-color: green;">
