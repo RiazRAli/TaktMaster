@@ -161,27 +161,25 @@
     }
 
     #arrivalCountdown {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
       font-size: 0.9rem;
       font-weight: bold;
       color: red;
-      z-index: 10;
       background-color: rgba(0, 0, 0, 0.6);
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
       max-width: 90vw;
+      margin: 0.5rem auto;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
       header {
-        padding-top: 4.5rem;
+        padding-top: 1.5rem;
       }
 
       header h1 {
         font-size: 1rem;
-        padding: 3rem 1rem 0.5rem 1rem;
+        padding: 1rem 1rem 0.5rem 1rem;
       }
 
       .station {
@@ -197,7 +195,6 @@
 
       .money-time {
         font-size: 0.75rem;
-        color: var(--text-color);
       }
 
       #controls {
@@ -213,16 +210,6 @@
       #factory {
         gap: 1rem;
         padding: 0.5rem;
-      }
-
-      #arrivalCountdown {
-        top: unset;
-        bottom: 0.5rem;
-        right: 0.5rem;
-        font-size: 0.75rem;
-        white-space: normal;
-        text-align: right;
-        background-color: rgba(0, 0, 0, 0.5);
       }
     }
   </style>
