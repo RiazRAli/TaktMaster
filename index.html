@@ -171,8 +171,11 @@
       max-width: 90vw;
       margin: 0.5rem auto;
       text-align: center;
-      display: none;
-      visibility: hidden;
+      display: block;
+      visibility: visible;
+      position: absolute;
+      right: 10px;
+      top: 10px;
     }
 
     #rulesTooltip {
@@ -182,6 +185,15 @@
       line-height: 1.6;
       display: none;
       visibility: hidden;
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+      width: 300px;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      z-index: 10;
     }
 
     @media (max-width: 768px) {
@@ -225,8 +237,10 @@
       }
 
       #arrivalCountdown {
-        display: block;
-        visibility: visible;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        position: static;
+        text-align: center;
       }
     }
   </style>
